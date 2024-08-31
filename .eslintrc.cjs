@@ -3,6 +3,7 @@ module.exports = {
     'standard',
     'plugin:vue/vue3-recommended',
     'plugin:cypress/recommended',
+    'prettier'
   ],
   overrides: [
     {

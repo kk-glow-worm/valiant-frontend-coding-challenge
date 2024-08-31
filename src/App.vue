@@ -1,4 +1,6 @@
 <script setup>
+import RepaymentCalculator from './widgets/RepaymentCalculator/RepaymentCalculator.vue'
+
 defineOptions({
   name: 'App',
 })
@@ -6,5 +8,5 @@ defineOptions({
 
 <template>
   <!-- TODO: Complete the coding challenge here! -->
-  <div />
+  <repayment-calculator />
 </template>
