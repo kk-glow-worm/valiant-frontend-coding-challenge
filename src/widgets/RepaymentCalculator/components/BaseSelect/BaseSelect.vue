@@ -3,7 +3,7 @@ import {
   handleChangeWrapper,
   Option,
   Payload,
-} from '@/widgets/RepaymentCalculator/components/Select/helpers'
+} from '@/widgets/RepaymentCalculator/components/BaseSelect/helpers'
 import { StateName } from '@/widgets/RepaymentCalculator/stores/uiStore'
 /*************************************
  * Setup

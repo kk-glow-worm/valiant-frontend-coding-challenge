@@ -1,5 +1,6 @@
-import { Payload } from './components/Select/helpers'
+import { Payload } from './components/BaseSelect/helpers'
 import { Period } from './stores/dataStore'
+import { Validator } from './components/BaseInput/helpers'
 
 export const updateStore =
   (store) =>
@@ -7,15 +8,12 @@ export const updateStore =
     store[name] = value
   }
 
-export const processAmountPayload = ({
-  // @ts-expect-error Event has target.value
-  target: { value },
-}: Event): Payload => ({
+export const processAmountPayload = (value: string): Payload => ({
   name: 'amount',
   value,
 })
 
-export const isReady = (amount, purpose, period, term) =>
+export const isReady = ({ amount, purpose, period, term }) =>
   amount !== null && purpose !== '' && period !== null && term !== null
 
 export const periodLabel = (period, periods: Period[]) =>
@@ -36,3 +34,8 @@ const numberWithCommas = (num: number) => {
 }
 export const displayRepayment = (repayment: number) =>
   `$${numberWithCommas(-Math.round(repayment))}`
+// amount validators
+export const minValidator: Validator = (value) =>
+  parseInt(value) < 1000 ? 'amount must be more than $1,000' : ''
+export const maxValidator: Validator = (value) =>
+  parseInt(value) > 2000000 ? 'amount must be less than $20,000,000' : ''

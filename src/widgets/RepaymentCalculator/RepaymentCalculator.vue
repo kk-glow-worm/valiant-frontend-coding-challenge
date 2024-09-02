@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import useUIStore, { State } from './stores/uiStore.js'
-import SelectInput from '@/widgets/RepaymentCalculator/components/Select/SelectInput.vue'
+import BaseSelect from '@/widgets/RepaymentCalculator/components/BaseSelect/BaseSelect.vue'
 import {
   displayRepayment,
   isReady,
+  maxValidator,
+  minValidator,
   periodLabel,
   processAmountPayload,
   totalRepayment,
   updateStore,
 } from '@/widgets/RepaymentCalculator/helpers'
 import useDataStore from '@/widgets/RepaymentCalculator/stores/dataStore'
+import BaseInput from '@/widgets/RepaymentCalculator/components/BaseInput/BaseInput.vue'
 /*************************************
  * Store access
  * ***********************************/
@@ -21,43 +24,47 @@ const { periods, terms, purposes } = dataStore
 /*************************************
  * Helpers
  * ***********************************/
-const handleEvent = updateStore(uiStore)
+const updateState = updateStore(uiStore)
+const updateAmount = (value) => {
+  updateState(processAmountPayload(value))
+}
 </script>
 
 <template>
   <div>
     <div>
       I'm looking for $
-      <input
+      <base-input
         placeholder="amount"
-        :value="amount"
-        @input="handleEvent(processAmountPayload($event))"
+        type="number"
+        :validators="[minValidator, maxValidator]"
+        @input-change="updateAmount"
       />
       for
-      <select-input
+      <base-select
         :options="purposes"
         name="purpose"
         placeholder="purpose"
-        @select-change="handleEvent"
+        @select-change="updateState"
       />
     </div>
     <div>
       to be paid
-      <select-input
+      <base-select
         :options="periods"
         name="period"
         placeholder="repayment period"
-        @select-change="handleEvent"
+        @select-change="updateState"
       />
       over
-      <select-input
+      <base-select
         :options="terms"
         name="term"
         placeholder="loan term"
-        @select-change="handleEvent"
+        @select-change="updateState"
       />
     </div>
-    <div v-show="isReady(amount, purpose, period, term)">
+    <div v-show="isReady({ amount, purpose, period, term })">
       <hr />
       <div>
         {{ periodLabel(period, periods) }} repayment amount:
