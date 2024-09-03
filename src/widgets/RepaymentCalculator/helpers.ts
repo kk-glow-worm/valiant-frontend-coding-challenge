@@ -1,7 +1,9 @@
 import { Payload } from './components/BaseSelect/helpers'
 import { Period } from './stores/dataStore'
 import { Validator } from './components/BaseInput/helpers'
-
+/*************************************
+ * helpers
+ * ***********************************/
 export const updateStore =
   (store) =>
   ({ name, value }: Payload) => {
@@ -16,7 +18,7 @@ export const processAmountPayload = (value: string): Payload => ({
 export const isReady = ({ amount, purpose, period, term }) =>
   amount !== null && purpose !== '' && period !== null && term !== null
 
-export const periodLabel = (period, periods: Period[]) =>
+export const periodLabel = (period: number, periods: Period[]) =>
   periods.find(({ value }) => String(value) === String(period))?.label
 
 export const totalRepayment = (repayment, period, term) => {
@@ -32,10 +34,25 @@ export const totalRepayment = (repayment, period, term) => {
 const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+
 export const displayRepayment = (repayment: number) =>
   `$${numberWithCommas(-Math.round(repayment))}`
-// amount validators
+/*************************************
+ * helpers - validators
+ * ***********************************/
 export const minValidator: Validator = (value) =>
   parseInt(value) < 1000 ? 'amount must be more than $1,000' : ''
+
 export const maxValidator: Validator = (value) =>
   parseInt(value) > 2000000 ? 'amount must be less than $20,000,000' : ''
+/*************************************
+ * helpers - api
+ * ***********************************/
+const baseUrl = 'http://localhost:5001' // TODO: using 5001 instead of 5000 due to mac is using 5000
+const purposeSubUrl = '/loan-purposes'
+const periodsSubUrl = '/requested-repayment-periods'
+const termsSubUrl = '/requested-term-months'
+const targetUrl = (url: string) => `${baseUrl}${url}`
+export const purposesUrl = targetUrl(purposeSubUrl)
+export const periodsUrl = targetUrl(periodsSubUrl)
+export const termsUrl = targetUrl(termsSubUrl)

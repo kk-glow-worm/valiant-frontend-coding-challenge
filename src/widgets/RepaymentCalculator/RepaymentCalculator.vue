@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import useUIStore, { State } from './stores/uiStore.js'
+import useUIStore from './stores/uiStore.js'
 import BaseSelect from '@/widgets/RepaymentCalculator/components/BaseSelect/BaseSelect.vue'
 import {
   displayRepayment,
@@ -12,17 +12,18 @@ import {
   totalRepayment,
   updateStore,
 } from '@/widgets/RepaymentCalculator/helpers'
-import useDataStore from '@/widgets/RepaymentCalculator/stores/dataStore'
 import BaseInput from '@/widgets/RepaymentCalculator/components/BaseInput/BaseInput.vue'
+import useDataStore from '@/widgets/RepaymentCalculator/stores/dataStore'
+import { useInitDataStore } from '@/widgets/RepaymentCalculator/composables/useInitDataStore'
 /*************************************
- * Store access
+ * store access
  * ***********************************/
+useInitDataStore()
 const uiStore = useUIStore()
-const { amount, purpose, period, term, repayment }: State = storeToRefs(uiStore)
-const dataStore = useDataStore()
-const { periods, terms, purposes } = dataStore
+const { amount, purpose, period, term, repayment } = storeToRefs(uiStore)
+const { periods, purposes, terms } = storeToRefs(useDataStore())
 /*************************************
- * Helpers
+ * helpers
  * ***********************************/
 const updateState = updateStore(uiStore)
 const updateAmount = (value) => {
