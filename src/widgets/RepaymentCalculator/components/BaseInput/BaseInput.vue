@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import {
+  classes,
   Errors,
   getValidationErrors,
-  hasError,
   Validator,
 } from '@/widgets/RepaymentCalculator/components/BaseInput/helpers'
-import { Payload } from '@/widgets/RepaymentCalculator/components/BaseSelect/helpers'
 /*************************************
- * Setup
+ * setup
  * ***********************************/
 defineProps<{
   placeholder: string
-  type: string
   validators: Validator[]
+  id: string
 }>()
 
 const emit = defineEmits<{
-  (e: 'inputChange', payload: Payload): void
+  (e: 'inputChange', value: string): void
 }>()
 
 /*************************************
- * State
+ * state
  * ***********************************/
 const value = ref()
 const errors: Errors = ref([])
+const hasError = computed(() => errors.value.length > 0)
 /*************************************
- * Helpers
+ * helpers
  * ***********************************/
 const validate = (value, validators: Validator[]) => {
   // validate
@@ -39,15 +39,17 @@ const validate = (value, validators: Validator[]) => {
 </script>
 
 <template>
-  <input
-    v-model="value"
-    :type="type"
-    :placeholder="placeholder"
-    @blur="validate(value, validators)"
-  />
-  <div v-show="hasError(errors)">
-    <p v-for="error in errors" :key="error">{{ error }}</p>
+  <div :class="classes.container">
+    <input
+      :id="id"
+      v-model="value"
+      :class="[classes.input, hasError ? classes.error : '']"
+      :placeholder="placeholder"
+      autocomplete="off"
+      @blur="validate(value, validators)"
+    />
+    <div v-show="hasError" :class="classes.errorMessageContainer">
+      <p v-for="error in errors" :key="error">{{ error }}</p>
+    </div>
   </div>
 </template>
-
-<style scoped></style>

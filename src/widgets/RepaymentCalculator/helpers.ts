@@ -15,10 +15,13 @@ export const processAmountPayload = (value: string): Payload => ({
   value,
 })
 
-export const isReady = ({ amount, purpose, period, term }) =>
-  amount !== null && purpose !== '' && period !== null && term !== null
+export const isEmpty = (value) =>
+  value === null || value === '' || value === undefined
 
-export const periodLabel = (period: number, periods: Period[]) =>
+export const isReady = ({ amount, purpose, period, term }) =>
+  !isEmpty(amount) && !isEmpty(purpose) && !isEmpty(period) && !isEmpty(term)
+
+export const periodLabel = (period: string, periods: Period[]) =>
   periods.find(({ value }) => String(value) === String(period))?.label
 
 export const totalRepayment = (repayment, period, term) => {
@@ -37,14 +40,23 @@ const numberWithCommas = (num: number) => {
 
 export const displayRepayment = (repayment: number) =>
   `$${numberWithCommas(-Math.round(repayment))}`
+
+export const amountID = '@repayment-calculator/input/amount'
+export const purposeID = '@repayment-calculator/select/purpose'
+export const periodID = '@repayment-calculator/select/period'
+export const termsID = '@repayment-calculator/select/terms'
 /*************************************
  * helpers - validators
  * ***********************************/
 export const minValidator: Validator = (value) =>
-  parseInt(value) < 1000 ? 'amount must be more than $1,000' : ''
+  parseInt(value) < 1000 ? 'Amount must be more than $1,000' : ''
 
 export const maxValidator: Validator = (value) =>
-  parseInt(value) > 2000000 ? 'amount must be less than $20,000,000' : ''
+  parseInt(value) > 2000000 ? 'Amount must be less than $20,000,000' : ''
+
+export const invalidNumValidator: Validator = (value) =>
+  // whn number input has invalid input it will set value tp empty string ''
+  isNaN(parseFloat(value)) ? 'Please use a valid amount' : ''
 /*************************************
  * helpers - api
  * ***********************************/

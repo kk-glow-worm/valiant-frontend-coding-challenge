@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import {
+  classes,
   handleChangeWrapper,
   Option,
   Payload,
 } from '@/widgets/RepaymentCalculator/components/BaseSelect/helpers'
-import { StateName } from '@/widgets/RepaymentCalculator/stores/uiStore'
+import { isEmpty } from '@/widgets/RepaymentCalculator/helpers'
 /*************************************
- * Setup
+ * setup
  * ***********************************/
 defineProps<{
   options: Option[]
   placeholder: string
-  name: StateName
+  name: string
+  value: number | string
+  id: string
 }>()
 
 const emit = defineEmits<{
@@ -24,7 +27,13 @@ const handleChange = handleChangeWrapper(emit)
 </script>
 
 <template>
-  <select @change="handleChange(name, $event)">
+  <select
+    :class="[
+      classes.select,
+      isEmpty(value) === false ? classes.selected : classes.notSelected,
+    ]"
+    @change="handleChange(name, $event)"
+  >
     <option value="">{{ placeholder }}</option>
     <option v-for="option in options" :key="option.value" :value="option.value">
       {{ option.label }}
@@ -32,4 +41,8 @@ const handleChange = handleChangeWrapper(emit)
   </select>
 </template>
 
-<style scoped></style>
+<style scoped>
+.selected {
+  color: #07bbc4;
+}
+</style>

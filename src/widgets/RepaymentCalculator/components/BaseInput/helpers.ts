@@ -7,7 +7,6 @@ export type Validator = (value: string) => string
 /*************************************
  * helpers
  * ***********************************/
-export const hasError = (errors: string[]) => errors.length > 0
 export const getValidationErrors =
   (value: string) => (errors: string[], validator: Validator) => {
     const error = validator(value)
@@ -16,3 +15,11 @@ export const getValidationErrors =
     }
     return errors
   }
+
+export const classes = {
+  container: 'flex flex-col',
+  input:
+    'border-b-2 border-dashed border-b-primary-color p-2.5 text-primary-color outline-none placeholder:text-tertiary-color',
+  error: 'border-b-secondary-color text-secondary-color',
+  errorMessageContainer: 'text-secondary-color',
+}

@@ -8,10 +8,10 @@ import PMT from '../../../utils/PMT'
 export type StateName = 'amount' | 'purpose' | 'period' | 'term'
 
 interface State {
-  amount: Ref<number | null>
+  amount: Ref<string>
   purpose: Ref<string>
-  period: Ref<number | null>
-  term: Ref<number | null>
+  period: Ref<string>
+  term: Ref<string>
   rate: ComputedRef<number>
   repayment: ComputedRef<number>
 }
@@ -38,10 +38,10 @@ const storeID = '@store/ui/repayment-calculator'
 
 const useUIStore = defineStore(storeID, () => {
   // states
-  const amount = ref(null)
+  const amount = ref('')
   const purpose = ref('')
-  const period = ref(null)
-  const term = ref(null)
+  const period = ref('')
+  const term = ref('')
   // store access
   const { purposes } = storeToRefs(useDataStore())
   // getters
