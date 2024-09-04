@@ -21,6 +21,7 @@ import { useInitDataStore } from '@/widgets/RepaymentCalculator/composables/useI
 import BaseTxt from '@/widgets/RepaymentCalculator/components/BaseTxt.vue'
 import CalculatorInputGroup from '@/widgets/RepaymentCalculator/components/CalculatorInputGroup.vue'
 import CalculatorSelectGroup from '@/widgets/RepaymentCalculator/components/CalculatorSelectGroup.vue'
+import CalculatorRow from '@/widgets/RepaymentCalculator/components/CalculatorRow.vue'
 /*************************************
  * store access
  * ***********************************/
@@ -43,40 +44,44 @@ const classes = {
 
 <template>
   <div :class="classes.container">
-    <calculator-input-group
-      :id="amountID"
-      :validators="[invalidNumValidator, minValidator, maxValidator]"
-      :handle-change="updateAmount"
-      label="I'm looking for $"
-      placeholder="amount"
-    />
-    <calculator-select-group
-      :id="purposeID"
-      :value="purpose"
-      :options="purposes"
-      :handle-change="updateState"
-      name="purpose"
-      label="for"
-      placeholder="purpose"
-    />
-    <calculator-select-group
-      :id="periodID"
-      :value="period"
-      :options="periods"
-      :handle-change="updateState"
-      name="period"
-      label="to be paid"
-      placeholder="repayment period"
-    />
-    <calculator-select-group
-      :id="termsID"
-      :value="term"
-      :options="terms"
-      :handle-change="updateState"
-      name="term"
-      label="over"
-      placeholder="loan term"
-    />
+    <calculator-row>
+      <calculator-input-group
+        :id="amountID"
+        :validators="[invalidNumValidator, minValidator, maxValidator]"
+        :handle-change="updateAmount"
+        label="I'm looking for $"
+        placeholder="amount"
+      />
+      <calculator-select-group
+        :id="purposeID"
+        :value="purpose"
+        :options="purposes"
+        :handle-change="updateState"
+        name="purpose"
+        label="for"
+        placeholder="purpose"
+      />
+    </calculator-row>
+    <calculator-row>
+      <calculator-select-group
+        :id="periodID"
+        :value="period"
+        :options="periods"
+        :handle-change="updateState"
+        name="period"
+        label="to be paid"
+        placeholder="repayment period"
+      />
+      <calculator-select-group
+        :id="termsID"
+        :value="term"
+        :options="terms"
+        :handle-change="updateState"
+        name="term"
+        label="over"
+        placeholder="loan term"
+      />
+    </calculator-row>
     <div v-show="isReady({ amount, purpose, period, term })">
       <hr class="my-7" />
       <div>

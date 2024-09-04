@@ -1,17 +1,15 @@
 <script setup lang="ts">
 interface Props {
   primary?: boolean
-  withSpace?: boolean
 }
 
-const { primary, withSpace } = withDefaults(defineProps<Props>(), {
+const { primary } = withDefaults(defineProps<Props>(), {
   primary: false,
-  withSpace: true,
 })
 </script>
 
 <template>
-  <p :class="[primary ? 'text-primary-color' : '', 'inline-block']">
-    <slot /> {{ withSpace ? '&nbsp;' : '' }}
+  <p :class="{ 'text-primary-color': primary }" class="mr-1 inline-block">
+    <slot />
   </p>
 </template>
