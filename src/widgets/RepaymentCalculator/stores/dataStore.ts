@@ -34,7 +34,6 @@ const useDataStore = defineStore(storeID, () => {
   const periods: Ref<Period[]> = ref([])
   const terms: Ref<Term[]> = ref([])
 
-  // return { periods, purposes, terms, initStore }
   return { periods, purposes, terms } as State
 })
 export default useDataStore
