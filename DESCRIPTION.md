@@ -3,3 +3,5 @@
 3. Fetch data - make app talks to the server and persist data in Pinia store
 4. style - more styling components came in place as more re-use of same code detected at this phase, e.g. <base-txt>, <base-row>, <calculator-input-group>, <calculator-select-group>, <calculator-row>, etc
 5. TODO: add unit tests and e2e tests - low level js unit tests, render component interactive functional tests, e2e tests.
+
+Live demo: https://this-is-demo-only.web.app/
