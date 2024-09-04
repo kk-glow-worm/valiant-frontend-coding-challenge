@@ -41,6 +41,20 @@ const numberWithCommas = (num: number) => {
 export const displayRepayment = (repayment: number) =>
   `$${numberWithCommas(-Math.round(repayment))}`
 
+const space = ' '
+export const restrictInputToDigitsOnly = (event) => {
+  // space key is 32 -> disable
+  // allow backspace to edit input
+  // allow tab key to navigate
+  if (
+    (isNaN(event.key) || event.key === space) &&
+    event.key !== 'Backspace' &&
+    event.key !== 'Tab'
+  ) {
+    event.preventDefault()
+  }
+}
+
 export const amountID = '@repayment-calculator/input/amount'
 export const purposeID = '@repayment-calculator/select/purpose'
 export const periodID = '@repayment-calculator/select/period'
@@ -55,8 +69,7 @@ export const maxValidator: Validator = (value) =>
   parseInt(value) > 2000000 ? 'Amount must be less than $20,000,000' : ''
 
 export const invalidNumValidator: Validator = (value) =>
-  // whn number input has invalid input it will set value tp empty string ''
-  isNaN(parseFloat(value)) ? 'Please use a valid amount' : ''
+  isEmpty(value) ? 'Please use a valid amount' : ''
 /*************************************
  * helpers - api
  * ***********************************/

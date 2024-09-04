@@ -17,6 +17,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'inputChange', value: string): void
+  (e: 'inputKeyDown', event: Event): void
 }>()
 
 /*************************************
@@ -33,8 +34,12 @@ const validate = (value, validators: Validator[]) => {
   errors.value = validators.reduce(getValidationErrors(value), [])
   // send value to parent
   if (errors.value.length === 0) {
-    emit('inputChange', value)
+    emit('inputChange', String(parseFloat(value)))
   }
+}
+
+const handleKeyDown = (event) => {
+  emit('inputKeyDown', event)
 }
 </script>
 
@@ -46,6 +51,7 @@ const validate = (value, validators: Validator[]) => {
       :class="[classes.input, hasError ? classes.error : '']"
       :placeholder="placeholder"
       autocomplete="off"
+      @keydown="handleKeyDown"
       @blur="validate(value, validators)"
     />
     <div v-show="hasError" :class="classes.errorMessageContainer">

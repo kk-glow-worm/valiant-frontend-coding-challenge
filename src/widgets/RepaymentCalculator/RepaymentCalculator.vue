@@ -12,6 +12,7 @@ import {
   periodLabel,
   processAmountPayload,
   purposeID,
+  restrictInputToDigitsOnly,
   termsID,
   totalRepayment,
   updateStore,
@@ -49,6 +50,7 @@ const classes = {
         :id="amountID"
         :validators="[invalidNumValidator, minValidator, maxValidator]"
         :handle-change="updateAmount"
+        :handle-key-down="restrictInputToDigitsOnly"
         label="I'm looking for $"
         placeholder="amount"
       />

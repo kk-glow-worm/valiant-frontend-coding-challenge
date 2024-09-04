@@ -8,6 +8,7 @@ defineProps<{
   id: string
   validators: Validator[]
   handleChange: (value) => void
+  handleKeyDown?: (event) => void
   label: string
   placeholder: string
 }>()
@@ -21,6 +22,7 @@ defineProps<{
       :placeholder="placeholder"
       :validators="validators"
       @input-change="handleChange"
+      @input-key-down="handleKeyDown"
     />
   </base-row>
 </template>
