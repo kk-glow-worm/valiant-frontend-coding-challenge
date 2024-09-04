@@ -33,14 +33,6 @@ export const totalRepayment = (repayment, period, term) => {
   return weeklyRepayment * totalWeeks
 }
 
-// export const displayRepayment = (repayment: number) => -Math.round(repayment)
-const numberWithCommas = (num: number) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
-
-export const displayRepayment = (repayment: number) =>
-  `$${numberWithCommas(-Math.round(repayment))}`
-
 const space = ' '
 export const restrictInputToDigitsOnly = (event) => {
   // space key is 32 -> disable

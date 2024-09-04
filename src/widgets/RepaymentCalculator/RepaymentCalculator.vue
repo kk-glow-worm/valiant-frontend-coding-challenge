@@ -3,7 +3,6 @@ import { storeToRefs } from 'pinia'
 import useUIStore from './stores/uiStore.js'
 import {
   amountID,
-  displayRepayment,
   invalidNumValidator,
   isReady,
   maxValidator,
@@ -19,10 +18,10 @@ import {
 } from '@/widgets/RepaymentCalculator/helpers'
 import useDataStore from '@/widgets/RepaymentCalculator/stores/dataStore'
 import { useInitDataStore } from '@/widgets/RepaymentCalculator/composables/useInitDataStore'
-import BaseTxt from '@/widgets/RepaymentCalculator/components/BaseTxt.vue'
 import CalculatorInputGroup from '@/widgets/RepaymentCalculator/components/CalculatorInputGroup.vue'
 import CalculatorSelectGroup from '@/widgets/RepaymentCalculator/components/CalculatorSelectGroup.vue'
 import CalculatorRow from '@/widgets/RepaymentCalculator/components/CalculatorRow.vue'
+import CalculatorResult from '@/widgets/RepaymentCalculator/components/CalculatorResult/CalculatorResult.vue'
 /*************************************
  * store access
  * ***********************************/
@@ -84,18 +83,11 @@ const classes = {
         placeholder="loan term"
       />
     </calculator-row>
-    <div v-show="isReady({ amount, purpose, period, term })">
-      <hr class="my-7" />
-      <div>
-        <base-txt>{{ periodLabel(period, periods) }} repayment: </base-txt>
-        <base-txt primary>{{ displayRepayment(repayment) }}</base-txt>
-      </div>
-      <div class="mt-7">
-        <base-txt>Total repayment:</base-txt>
-        <base-txt primary>{{
-          displayRepayment(totalRepayment(repayment, period, term))
-        }}</base-txt>
-      </div>
-    </div>
+    <calculator-result
+      v-show="isReady({ amount, purpose, period, term })"
+      :period-label="periodLabel(period, periods)"
+      :period-repayment="repayment"
+      :total-repayment="totalRepayment(repayment, period, term)"
+    />
   </div>
 </template>
