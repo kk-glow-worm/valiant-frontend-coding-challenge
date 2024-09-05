@@ -34,7 +34,7 @@ const validate = (value, validators: Validator[]) => {
   errors.value = validators.reduce(getValidationErrors(value), [])
   // send value to parent
   if (errors.value.length === 0) {
-    emit('inputChange', String(parseFloat(value)))
+    emit('inputChange', value)
   }
 }
 

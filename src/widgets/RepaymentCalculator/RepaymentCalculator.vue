@@ -34,7 +34,7 @@ const { periods, purposes, terms } = storeToRefs(useDataStore())
  * ***********************************/
 const updateState = updateStore(uiStore)
 const updateAmount = (value) => {
-  updateState(processAmountPayload(value))
+  updateState(processAmountPayload(String(parseInt(value))))
 }
 
 const classes = {
