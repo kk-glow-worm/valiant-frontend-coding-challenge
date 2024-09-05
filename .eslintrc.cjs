@@ -4,7 +4,8 @@ module.exports = {
     "parser": "@typescript-eslint/parser",
   },
   plugins: [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "cypress"
   ],
   extends: [
     'standard',
@@ -57,4 +58,7 @@ module.exports = {
     }],
     'vue/object-curly-spacing': ['error', 'always'],
   },
+  env: {
+    "cypress/globals": true
+  }
 }

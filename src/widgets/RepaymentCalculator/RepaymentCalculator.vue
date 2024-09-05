@@ -12,7 +12,7 @@ import {
   processAmountPayload,
   purposeID,
   restrictInputToDigitsOnly,
-  termsID,
+  termID,
   totalRepayment,
   updateStore,
 } from '@/widgets/RepaymentCalculator/helpers'
@@ -74,7 +74,7 @@ const classes = {
         placeholder="repayment period"
       />
       <calculator-select-group
-        :id="termsID"
+        :id="termID"
         :value="term"
         :options="terms"
         :handle-change="updateState"

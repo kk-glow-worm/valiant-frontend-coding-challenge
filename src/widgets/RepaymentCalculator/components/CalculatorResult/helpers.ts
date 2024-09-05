@@ -4,3 +4,5 @@ const numberWithCommas = (num: number) => {
 
 export const displayRepayment = (repayment: number) =>
   `$${numberWithCommas(-Math.round(repayment))}`
+
+export const testID = 'calculator-result'

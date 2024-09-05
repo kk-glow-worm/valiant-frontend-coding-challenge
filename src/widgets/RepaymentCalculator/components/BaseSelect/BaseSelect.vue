@@ -28,6 +28,7 @@ const handleChange = handleChangeWrapper(emit)
 
 <template>
   <select
+    :id="id"
     :class="[
       classes.select,
       isEmpty(value) === false ? classes.selected : classes.notSelected,

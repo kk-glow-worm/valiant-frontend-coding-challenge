@@ -47,10 +47,10 @@ export const restrictInputToDigitsOnly = (event) => {
   }
 }
 
-export const amountID = '@repayment-calculator/input/amount'
-export const purposeID = '@repayment-calculator/select/purpose'
-export const periodID = '@repayment-calculator/select/period'
-export const termsID = '@repayment-calculator/select/terms'
+export const amountID = 'repayment-calculator__input--amount'
+export const purposeID = 'repayment-calculator__select--purpose'
+export const periodID = 'repayment-calculator__select--period'
+export const termID = 'repayment-calculator__select--terms'
 /*************************************
  * helpers - validators
  * ***********************************/

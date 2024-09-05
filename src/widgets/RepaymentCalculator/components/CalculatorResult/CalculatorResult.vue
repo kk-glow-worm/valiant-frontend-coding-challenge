@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import BaseTxt from '@/widgets/RepaymentCalculator/components/BaseTxt.vue'
-import { displayRepayment } from '@/widgets/RepaymentCalculator/components/CalculatorResult/helpers'
+import {
+  displayRepayment,
+  testID,
+} from '@/widgets/RepaymentCalculator/components/CalculatorResult/helpers'
 
 interface Props {
   periodLabel: string
@@ -8,20 +11,18 @@ interface Props {
   totalRepayment: number
 }
 
-const { periodLabel = '' } = withDefaults(defineProps<Props>(), {
-  periodLabel: '',
-})
+defineProps<Props>()
 </script>
 
 <template>
-  <div>
+  <div :data-testId="testID">
     <hr class="my-7" />
     <div>
       <base-txt>{{ periodLabel }} repayment: </base-txt>
       <base-txt primary>{{ displayRepayment(periodRepayment) }}</base-txt>
     </div>
     <div class="mt-7">
-      <base-txt>Total repayment:</base-txt>
+      <base-txt>Total repayment: </base-txt>
       <base-txt primary>{{ displayRepayment(totalRepayment) }}</base-txt>
     </div>
   </div>
